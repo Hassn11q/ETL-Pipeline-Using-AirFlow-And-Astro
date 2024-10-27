@@ -6,7 +6,7 @@ This project implements an ETL (Extract, Transform, Load) process for event data
 ## Table of Contents
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
-- [Installation](#installation)
+- [Setup Instructions](#SetupInstructions)
 - [Usage](#usage)
 
 
@@ -27,7 +27,7 @@ The ETL process consists of the following steps:
 - Python 3.9 or higher
 - Docker installed on your machine 
 
-## Setup Instructions
+### Setup Instructions
 1. **Install the Astronomer CLI**:
    Follow the instructions on the [Astronomer CLI documentation](https://www.astronomer.io/docs/cli/install-cli) to install the CLI on your machine.
 
@@ -69,6 +69,21 @@ volumes:
 ```bash 
 astro dev start
 ``` 
-2. access Access the Airflow UI at http://localhost:8080 and find the DAG named api_event_etl_dag 
-3. Trigger the DAG manually or set a schedule for automatic runs.
-4. Monitor the execution: Once triggered, you can monitor the execution of the DAG in the Airflow UI, check the status of each task, and view logs for debugging.
+2. **Access the Airflow UI**: Go to http://localhost:8080 in your browser and log in with the default credentials (usually "admin" / "admin").
+3. **Add PostgreSQL Connection in Airflow**:
+- In the Airflow UI, navigate to Admin > Connections.
+- Click the "+" button to add a new connection.
+- Enter the following details for the PostgreSQL connection:
+- Connection Id: postgres_default
+- Connection Type: Postgres
+- Host: postgres (the service name in docker-compose.yml)
+- Schema: postgres (or your database name)
+- Login: postgres (or your database username)
+- Password: postgres (or your database password)
+- Port: 5432
+- Save the connection.
+
+4. **Run and Monitor the DAG**:
+- In the Airflow UI, find the DAG named api_event_etl_dag.
+- Trigger the DAG manually or set a schedule for automatic runs.
+- Monitor the execution of the DAG in the Airflow UI, check the status of each task, and view logs for debugging.
